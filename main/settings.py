@@ -12,9 +12,12 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from decouple import Config, RepositoryEnv
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
+# Load .env file
+load_dotenv()
 #loading the environment variables from .env file :) --------
-env_config = Config(RepositoryEnv('.env'))
+# env_config = Config(RepositoryEnv('.env'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env_config('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -77,13 +80,26 @@ WSGI_APPLICATION = 'main.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DATABASE'),  # Your database name
+        'USER': os.getenv('POSTGRES_USER'),  # Your PostgreSQL username
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),  # Your PostgreSQL password
+        'HOST': os.getenv('POSTGRES_HOST'),  # Your database host
+        'PORT': '5432',  # Your database port
+        'OPTIONS': {
+            'sslmode': 'require',  # Ensuring the connection uses SSL
+        },
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

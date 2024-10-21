@@ -14,9 +14,9 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-# Load .env file
-load_dotenv()
+
 #loading the environment variables from .env file :) --------
+load_dotenv()
 # env_config = Config(RepositoryEnv('.env'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -90,13 +90,13 @@ WSGI_APPLICATION = 'main.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DATABASE'),  # Your database name
-        'USER': os.getenv('POSTGRES_USER'),  # Your PostgreSQL username
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),  # Your PostgreSQL password
-        'HOST': os.getenv('POSTGRES_HOST'),  # Your database host
-        'PORT': '5432',  # Your database port
+        'NAME': os.getenv('POSTGRES_DATABASE'),  
+        'USER': os.getenv('POSTGRES_USER'), 
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'), 
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': '5432', 
         'OPTIONS': {
-            'sslmode': 'require',  # Ensuring the connection uses SSL
+            'sslmode': 'require',  
         },
     }
 }
